@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.Adapter.RecyclerAdapter;
 import com.example.uidesign.Model.ResponseDataItem;
+import com.facebook.shimmer.Shimmer;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -46,6 +48,8 @@ public class DashBoardActivity extends AppCompatActivity {
         googleSignInClient = GoogleSignIn.getClient(DashBoardActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
         getApiRecyclerData();
+        ShimmerFrameLayout layout = findViewById(R.id.shimmer_layout);
+        layout.showShimmer(true);
 
         profile.setOnClickListener(view -> {
             Intent i = new Intent(DashBoardActivity.this, ProfileActivity.class);
