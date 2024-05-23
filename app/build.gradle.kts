@@ -52,4 +52,5 @@ dependencies {
     implementation (libs.play.services.auth)
     implementation (libs.glide)
     implementation (libs.firebase.storage)
+    implementation (libs.shimmer)
 }
