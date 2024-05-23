@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712421544454",
+    "project_id": "uidesign-73739",
+    "storage_bucket": "uidesign-73739.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712421544454:android:e3c3378e9a1c6881252987",
+        "android_client_info": {
+          "package_name": "com.example.uidesign"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7PguH5dIE9iCbiOelC43SDOpOU9PkTFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

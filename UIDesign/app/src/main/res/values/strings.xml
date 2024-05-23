@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">UIDesign</string>
+    <string name="sign_in_to_continue">Sign In to continue</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="e_mail_address">E-Mail Address</string>
+    <string name="you_can_contact_with">You can contact with</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="_162138891">162138891</string>
+    <string name="dont_t_have_account_sign_up_here">Dont\'t have Account? Sign Up here</string>
+    <string name="create_account">Create Account!</string>
+    <string name="signup_to_continue">SignUp to continue</string>
+    <string name="mishraanushka121_gmail_com">mishraanushka121@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="_8272b">8272b$%%</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="already_have_ann_account_signin">Already Have ann Account? SignIn</string>
+    <string name="product_details">Product Details</string>
+    <string name="sign_in">Sign In</string>
+</resources>
