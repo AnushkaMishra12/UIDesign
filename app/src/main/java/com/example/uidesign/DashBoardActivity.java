@@ -47,10 +47,6 @@ public class DashBoardActivity extends AppCompatActivity {
         }
         googleSignInClient = GoogleSignIn.getClient(DashBoardActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
-        getApiRecyclerData();
-        ShimmerFrameLayout layout = findViewById(R.id.shimmer_layout);
-        layout.showShimmer(true);
-
         profile.setOnClickListener(view -> {
             Intent i = new Intent(DashBoardActivity.this, ProfileActivity.class);
             startActivity(i);
