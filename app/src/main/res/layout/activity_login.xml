@@ -6,35 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorAccent"
+    android:background="?attr/cardBackground"
     android:scrollbars="vertical"
     tools:context=".LoginActivity">
 
-
     <ImageView
-        android:id="@+id/img"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img"
+        android:id="@+id/img_log"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/log_ic"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="@id/img">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_log"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:text="@string/welcome_back"
-            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textColor="?attr/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -42,8 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
+            android:textAlignment="center"
             android:text="@string/sign_in_to_continue"
-            android:textColor="@color/black"
+            android:textColor="?attr/textColor"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -57,28 +60,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/cv_bg"
             android:orientation="vertical"
-            android:padding="15dp">
+     >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/cardBackground"
+                android:padding="15dp"
                 android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/filledTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:endIconMode="clear_text"
                     app:helperTextEnabled="true"
-                    app:helperText="Enter Username or Email"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="Enter Username or Email"
                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/user_lt"
                         android:layout_width="match_parent"
                         android:inputType="textPersonName"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
                         android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -88,7 +95,8 @@
                     android:layout_margin="10dp"
                     app:passwordToggleEnabled="true"
                     app:helperTextEnabled="true"
-                    app:helperText="Enter Password"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="Enter Password"
                   >
 
 
@@ -96,6 +104,8 @@
                         android:id="@+id/pass_lt"
                         android:layout_width="match_parent"
                         android:inputType="textPassword"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
                         android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -107,7 +117,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="10dp"
                     android:text="@string/forget_password"
-                    android:textColor="#E80C0C" />
+                    android:textColor="?attr/textColor" />
 
                 <CheckBox
                     android:layout_width="match_parent"
@@ -117,7 +127,7 @@
                     android:checked="true"
                     android:contextClickable="true"
                     android:text="@string/remember_me_and_keep_me_logging"
-                    android:textColor="@color/black" />
+                    android:textColor="?attr/textColor" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/login_bt"
@@ -125,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="#700909"
+                    app:cardBackgroundColor="?attr/buttonBackground"
                     app:cardCornerRadius="5dp"
                     app:cardUseCompatPadding="true">
 
@@ -135,7 +145,7 @@
                         android:padding="10dp"
                         android:text="@string/sign_in"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/buttonTextColor"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -163,7 +173,7 @@
                         android:layout_gravity="center"
                         android:padding="5dp"
                         android:text="@string/you_can_contact_with"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textColor"
                         android:textSize="15sp" />
 
                     <View
@@ -209,7 +219,7 @@
                     android:layout_margin="20dp"
                     android:padding="5dp"
                     android:text="@string/dont_t_have_account_sign_up_here"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/textColor"
                     android:textSize="15sp" />
 
             </LinearLayout>

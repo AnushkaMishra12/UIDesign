@@ -12,14 +12,14 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_dark">
+        android:background="?attr/cardBackground">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/product_details"
-            android:textColor="@color/white"
+            android:textColor="?attr/textColor"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -51,8 +51,6 @@
             android:src="@drawable/log_out" />
 
     </androidx.appcompat.widget.Toolbar>
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

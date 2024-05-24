@@ -2,10 +2,18 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.UIDesign" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="colorPrimary">@color/pink</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="cardBackgroundColor">@color/cvn</item>
-
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#2D2E2E</item>
+        <item name="colorAccent">#090909</item>
+        <item name="cardBackgroundColor">#909093</item>
+        <item name="cardBackground_Sign">#2D2E2E</item>
+        <item name="appWindowBackground">#393e46</item>
+        <item name="cardBackground">#2D2E2E</item>
+        <item name="textColor">#ffffff</item>
+        <item name="textColorSecondary">#DAA8A8A8</item>
+        <item name="iconColor">#00fff5</item>
+        <item name="buttonBackground">#AE6202</item>
+        <item name="buttonTextColor">#FBFAFA</item>
     </style>
     <style name="Theme.UIDesign" parent="Base.Theme.UIDesign" />
 
