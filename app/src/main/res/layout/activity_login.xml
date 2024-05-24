@@ -165,7 +165,7 @@
                         android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:layout_marginTop="15dp"
-                        android:background="@color/black" />
+                        android:background="?attr/buttonBackground" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
                         android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:layout_marginTop="15dp"
-                        android:background="@color/black" />
+                        android:background="?attr/buttonBackground"/>
 
                 </LinearLayout>
 
