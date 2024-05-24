@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.Adapter.RecyclerAdapter;
 import com.example.uidesign.Model.ResponseDataItem;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,21 +32,22 @@ public class DashBoardActivity extends AppCompatActivity {
     ImageView profile, log_out;
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-
+        shimmerFrameLayout = findViewById(R.id.shimmer);
         profile = findViewById(R.id.profile);
         recyclerView = findViewById(R.id.recycler_view);
         log_out = findViewById(R.id.logOut);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             Glide.with(DashBoardActivity.this).load(firebaseUser.getPhotoUrl()).into(profile);
-            //Glide is an Image Loader Library...
         }
         googleSignInClient = GoogleSignIn.getClient(DashBoardActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
@@ -62,6 +64,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
             });
         });
+
+        getApiRecyclerData();
     }
     private void getApiRecyclerData() {
         Call<List<ResponseDataItem>> call = RetrofitClient.getInstance().getApi().getData();
@@ -69,6 +73,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call<List<ResponseDataItem>> call, @NonNull Response<List<ResponseDataItem>> response) {
+                shimmerFrameLayout.startShimmer();
                 if (response.isSuccessful()) {
                     getItem(response.body());
                 }
@@ -79,10 +84,14 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getItem(List<ResponseDataItem> itemList) {
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(itemList, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        shimmerFrameLayout.hideShimmer();
+        shimmerFrameLayout.stopShimmer();
+
     }
 }
