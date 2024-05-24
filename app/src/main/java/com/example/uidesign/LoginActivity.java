@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
         });
         login_cv.setOnClickListener(view -> {
-            if (!validateUser() | !validatePassword()) {
+            if(!validateUser() | !validatePassword()) {
             } else {
                 checkUser();
             }

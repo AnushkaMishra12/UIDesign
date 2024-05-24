@@ -1,13 +1,29 @@
 package com.example.uidesign;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
@@ -16,6 +32,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
     String nameUser, emailUser, passUser, phoneUser, designUser, genderUser;
+    ImageView cam, img;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +50,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
         design_et = findViewById(R.id.des_up);
         email_et = findViewById(R.id.email_up);
         pass_et = findViewById(R.id.pass_up);
+        cam=findViewById(R.id.cam_up);
+        img=findViewById(R.id.image_up);
+
+        cam.setOnClickListener(v -> {
+            if(checkAndRequestPermissionsForUpdate()){
+                chooseImageForUpdate();
+            }
+        });
 
         showData();
 
@@ -45,6 +71,83 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void chooseImageForUpdate() {
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setItems(optionsMenu, (dialogInterface, i) -> {
+            if(optionsMenu[i].equals("Take Photo")){
+
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+            else if(optionsMenu[i].equals("Choose from Gallery")){
+
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
+            }
+            else if (optionsMenu[i].equals("Exit")) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private boolean checkAndRequestPermissionsForUpdate() {
+        int WExtstorePermission = ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.CAMERA);
+        }
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        img.setImageBitmap(selectedImage);
+                    }
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                cursor.close();
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
     private boolean isDesignationChanged() {
         if (!designUser.equalsIgnoreCase(design_et.getText().toString())) {
             reference.child("users").child("designation").setValue(design_et.getText().toString());

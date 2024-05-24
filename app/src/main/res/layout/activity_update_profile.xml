@@ -53,6 +53,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/image_up"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -60,6 +61,7 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
+            android:id="@+id/cam_up"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="70dp"
