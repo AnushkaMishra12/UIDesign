@@ -9,7 +9,6 @@
         <item name="appWindowBackground">#CDDDDD</item>
         <item name="cardBackground">#9DECF4</item>
         <item name="cardBackground_Sign">#C8B5F3</item>
-
         <item name="textColor">#000000</item>
         <item name="textColorSecondary">#717171</item>
         <item name="iconColor">#6A6A6A</item>

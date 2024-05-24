@@ -1,7 +1,6 @@
 package com.example.uidesign;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -61,8 +59,8 @@ public class SignUpActivity extends AppCompatActivity {
         camera = findViewById(R.id.camera);
 
         camera.setOnClickListener(v -> {
-            if(checkAndRequestPermissions(SignUpActivity.this)){
-                chooseImage(SignUpActivity.this);
+            if(checkAndRequestPermissions()){
+                chooseImage();
             }
         });
 
@@ -91,33 +89,30 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void chooseImage(SignUpActivity signUpActivity) {
+    private void chooseImage() {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(optionsMenu[i].equals("Take Photo")){
+        builder.setItems(optionsMenu, (dialogInterface, i) -> {
+            if(optionsMenu[i].equals("Take Photo")){
 
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                }
-                else if(optionsMenu[i].equals("Choose from Gallery")){
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+            else if(optionsMenu[i].equals("Choose from Gallery")){
 
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
-                }
-                else if (optionsMenu[i].equals("Exit")) {
-                    dialogInterface.dismiss();
-                }
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
+            }
+            else if (optionsMenu[i].equals("Exit")) {
+                dialogInterface.dismiss();
             }
         });
         builder.show();
     }
 
-    private boolean checkAndRequestPermissions(SignUpActivity signUpActivity) {
+    private boolean checkAndRequestPermissions() {
         int WExtstorePermission = ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int cameraPermission = ContextCompat.checkSelfPermission(this,
