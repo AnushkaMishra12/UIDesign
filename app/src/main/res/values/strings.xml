@@ -46,4 +46,6 @@
     <string name="gender_g">gender</string>
     <string name="sxjbhj">sxjbhj</string>
     <string name="enter_username_or_email">Enter Username or Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="e">Enter Username or Email</string>
 </resources>

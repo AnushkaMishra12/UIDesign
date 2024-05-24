@@ -77,7 +77,7 @@
                     app:endIconMode="clear_text"
                     app:helperTextEnabled="true"
                     app:hintTextColor="?attr/textColor"
-                    android:hint="Enter Username or Email"
+                    android:hint="@string/e"
                    >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +96,7 @@
                     app:passwordToggleEnabled="true"
                     app:helperTextEnabled="true"
                     app:hintTextColor="?attr/textColor"
-                    android:hint="Enter Password"
+                    android:hint="@string/enter_password"
                   >
 
 
