@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/appWindowBackground">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp">
@@ -18,9 +18,8 @@
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
             android:background="@color/shimmer_bg_color"
-            />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/name"
@@ -28,11 +27,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img"
+            android:layout_toEndOf="@id/img"
+            android:background="@color/shimmer_bg_color"
             android:textColor="@color/black"
             android:textSize="19sp"
-            android:textStyle="bold"
-            android:background="@color/shimmer_bg_color"/>
+            android:textStyle="bold" />
+
+
 
         <TextView
             android:id="@+id/price"
@@ -41,10 +42,10 @@
             android:layout_below="@id/name"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img"
+            android:layout_toEndOf="@id/img"
+            android:background="@color/shimmer_bg_color"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:background="@color/shimmer_bg_color"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/rating"
@@ -53,11 +54,10 @@
             android:layout_below="@id/price"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img"
+            android:layout_toEndOf="@id/img"
+            android:background="@color/shimmer_bg_color"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:background="@color/shimmer_bg_color"/>
-
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/description"
@@ -69,15 +69,20 @@
             android:background="@color/shimmer_bg_color"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_below="@id/description"/>
+            android:layout_below="@id/description" />
+
         <View
+            android:id="@+id/jddv"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#94635B5B"
-            android:layout_below="@id/view"/>
+            android:layout_below="@id/view"
+            android:background="#94635B5B" />
+
+
     </RelativeLayout>
 </RelativeLayout>

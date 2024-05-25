@@ -19,6 +19,6 @@
     <color name="colorSecondaryVariant">#69F0AE</color>
     <color name="shimmerColor">#C2C2C2</color>
     <color name="text">#C2C2C2</color>
-    <color name="shimmer_bg_color">#BFBEBE</color>
+    <color name="shimmer_bg_color">#A8A7A7</color>
 
 </resources>

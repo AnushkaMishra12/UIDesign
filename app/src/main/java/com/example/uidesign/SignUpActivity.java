@@ -1,7 +1,6 @@
 package com.example.uidesign;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,15 +9,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,14 +22,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +82,9 @@ public class SignUpActivity extends AppCompatActivity {
             String pass_st = password_et.getText().toString();
             String phone_st = phone_et.getText().toString();
             String design_st = designation_et.getText().toString();
+
             uploadImage();
+
             SignUpDataItem item = new SignUpDataItem(name_st, email_st, gender_st, design_st, phone_st, pass_st);
             reference.child(name_st).setValue(item);
             Toast.makeText(SignUpActivity.this, "you have SIgnUp Successfully", Toast.LENGTH_SHORT).show();
@@ -112,24 +106,21 @@ public class SignUpActivity extends AppCompatActivity {
 
             }).addOnFailureListener(e -> {
                 Toast.makeText(SignUpActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
             }).addOnProgressListener(taskSnapshot -> {
             });
         }
     }
+
     private void chooseImage() {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
             if (optionsMenu[i].equals("Take Photo")) {
-
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
 
             } else if (optionsMenu[i].equals("Choose from Gallery")) {
-
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, 1);
 
