@@ -1,6 +1,7 @@
 package com.example.uidesign;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -9,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -23,11 +26,18 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -37,8 +47,11 @@ public class SignUpActivity extends AppCompatActivity {
     CardView signUp_bt;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
-
+    private Uri selectedImage;
+    FirebaseStorage storage;
+    StorageReference storageReference;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +71,15 @@ public class SignUpActivity extends AppCompatActivity {
         image_im = findViewById(R.id.image_im);
         camera = findViewById(R.id.camera);
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         camera.setOnClickListener(v -> {
-            if(checkAndRequestPermissions()){
+            if (checkAndRequestPermissions()) {
                 chooseImage();
             }
         });
+
 
         signUp_bt.setOnClickListener(view -> {
             firebaseDatabase = FirebaseDatabase.getInstance();
@@ -74,10 +91,9 @@ public class SignUpActivity extends AppCompatActivity {
             String pass_st = password_et.getText().toString();
             String phone_st = phone_et.getText().toString();
             String design_st = designation_et.getText().toString();
-
+            uploadImage();
             SignUpDataItem item = new SignUpDataItem(name_st, email_st, gender_st, design_st, phone_st, pass_st);
             reference.child(name_st).setValue(item);
-
             Toast.makeText(SignUpActivity.this, "you have SIgnUp Successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(i);
@@ -89,23 +105,37 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    private void uploadImage() {
+        if (selectedImage != null) {
+            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            ref.putFile(selectedImage).addOnSuccessListener(taskSnapshot -> {
+                Toast.makeText(SignUpActivity.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+
+            }).addOnFailureListener(e -> {
+                Toast.makeText(SignUpActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }).addOnProgressListener(taskSnapshot -> {
+            });
+        }
+    }
+
     private void chooseImage() {
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" };
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
-            if(optionsMenu[i].equals("Take Photo")){
+            if (optionsMenu[i].equals("Take Photo")) {
 
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
-            }
-            else if(optionsMenu[i].equals("Choose from Gallery")){
+
+            } else if (optionsMenu[i].equals("Choose from Gallery")) {
 
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , 1);
-            }
-            else if (optionsMenu[i].equals("Exit")) {
+                startActivityForResult(pickPhoto, 1);
+
+            } else if (optionsMenu[i].equals("Exit")) {
                 dialogInterface.dismiss();
             }
         });
@@ -113,40 +143,36 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean checkAndRequestPermissions() {
-        int WExtstorePermission = ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int cameraPermission = ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.CAMERA);
+        int WExtstorePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
         List<String> listPermissionsNeeded = new ArrayList<>();
         if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(android.Manifest.permission.CAMERA);
         }
         if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded
-                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded
-                            .toArray(new String[listPermissionsNeeded.size()]),
-                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
             return false;
         }
         return true;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
-                    if (resultCode == RESULT_OK && data != null) {
+                    if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         image_im.setImageBitmap(selectedImage);
                     }
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage = data.getData();
+                       selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
                             Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
