@@ -53,4 +53,5 @@ dependencies {
     implementation (libs.glide)
     implementation (libs.firebase.storage)
     implementation (libs.shimmer)
+
 }

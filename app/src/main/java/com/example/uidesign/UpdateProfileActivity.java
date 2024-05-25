@@ -105,12 +105,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
             listPermissionsNeeded.add(android.Manifest.permission.CAMERA);
         }
         if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded
-                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded
-                            .toArray(new String[listPermissionsNeeded.size()]),
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
             return false;
         }

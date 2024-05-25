@@ -9,11 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,7 +30,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -143,9 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                         String phoneFromDB = dataSnapshot.child(userName).child("phoneNo").getValue(String.class);
                         String designFromDB = dataSnapshot.child(userName).child("designation").getValue(String.class);
                         pd.show();
-
                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
-
                         intent.putExtra("name", nameFromDB);
                         intent.putExtra("email", emailFromDB);
                         intent.putExtra("gender", genderFromDB);

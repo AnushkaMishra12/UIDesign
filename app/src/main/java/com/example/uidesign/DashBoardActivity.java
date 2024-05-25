@@ -2,6 +2,7 @@ package com.example.uidesign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -64,7 +65,6 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
             });
         });
-
         getApiRecyclerData();
     }
     private void getApiRecyclerData() {
@@ -73,7 +73,9 @@ public class DashBoardActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call<List<ResponseDataItem>> call, @NonNull Response<List<ResponseDataItem>> response) {
-                shimmerFrameLayout.startShimmer();
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     getItem(response.body());
                 }
@@ -90,8 +92,7 @@ public class DashBoardActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        shimmerFrameLayout.hideShimmer();
-        shimmerFrameLayout.stopShimmer();
+
 
     }
 }
