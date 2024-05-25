@@ -64,6 +64,7 @@ public class DashBoardActivity extends AppCompatActivity {
         getApiRecyclerData();
     }
     private void getApiRecyclerData() {
+
         Call<List<ResponseDataItem>> call = RetrofitClient.getInstance().getApi().getData();
         call.enqueue(new Callback<List<ResponseDataItem>>() {
 

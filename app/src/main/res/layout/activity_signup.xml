@@ -36,7 +36,6 @@
                 android:src="@drawable/profile" />
 
 
-
         </androidx.cardview.widget.CardView>
 
         <ImageView

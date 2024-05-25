@@ -60,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         Window w = getWindow();
         w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
         sign_bt = findViewById(R.id.sign_bt);
         userName_et = findViewById(R.id.user_rt);
         email_et = findViewById(R.id.email_rt);
@@ -70,7 +71,6 @@ public class SignUpActivity extends AppCompatActivity {
         signUp_bt = findViewById(R.id.signUp_bt);
         image_im = findViewById(R.id.image_im);
         camera = findViewById(R.id.camera);
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -79,7 +79,6 @@ public class SignUpActivity extends AppCompatActivity {
                 chooseImage();
             }
         });
-
 
         signUp_bt.setOnClickListener(view -> {
             firebaseDatabase = FirebaseDatabase.getInstance();
@@ -118,7 +117,6 @@ public class SignUpActivity extends AppCompatActivity {
             });
         }
     }
-
     private void chooseImage() {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
 
