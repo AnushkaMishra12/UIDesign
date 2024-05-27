@@ -3,6 +3,7 @@
     <string name="sign_in_to_continue">Sign In to continue</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="e_mail_address">E-Mail Address</string>
+    <string name="forgot_password_Text">If you have forgotten your password, please enter your accounts email address below and click the \"Reset My Password\" button. You will receive an email that  contain a link to set a new password.</string>
     <string name="you_can_contact_with">You can contact with</string>
     <string name="sign_up">Sign Up</string>
     <string name="_162138891">162138891</string>

@@ -13,6 +13,7 @@
         <item name="iconColor">#00fff5</item>
         <item name="buttonBackground">#AE6202</item>
         <item name="buttonTextColor">#FBFAFA</item>
+        <item name="msgText">#E85353</item>
     </style>
     <style name="Theme.UIDesign" parent="Base.Theme.UIDesign" />
 

@@ -3,6 +3,7 @@ package com.example.uidesign;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView signUp_tv;
+    TextView signUp_tv,forgetPassword;
     CardView login_cv;
     EditText name_et, pass_et;
     private ProgressDialog pd;
@@ -56,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         login_cv = findViewById(R.id.login_bt);
         signUp_tv = findViewById(R.id.reg_bt);
         google_sbt = findViewById(R.id.google_sbt);
+        forgetPassword=findViewById(R.id.forgetPassword);
 
         pd = new ProgressDialog(this);
         pd.setTitle("Processing...");
@@ -71,6 +73,13 @@ public class LoginActivity extends AppCompatActivity {
             if(!validateUser() | !validatePassword()) {
             } else {
                 checkUser();
+            }
+        });
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, ForgotPassword.class);
+                startActivity(i);
             }
         });
 
@@ -124,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         pd.show();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("name").equalTo(userName);
+        Query checkUserDatabase = reference.orderByChild("email").equalTo(userName);
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

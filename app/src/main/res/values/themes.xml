@@ -14,6 +14,7 @@
         <item name="iconColor">#6A6A6A</item>
         <item name="buttonBackground">#1A0A49</item>
         <item name="buttonTextColor">#ffffff</item>
+        <item name="msgText">#C31515</item>
     </style>
     <style name="Theme.UIDesign" parent="Base.Theme.UIDesign" />
 

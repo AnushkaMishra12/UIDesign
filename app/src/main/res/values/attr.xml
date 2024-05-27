@@ -8,4 +8,5 @@
         <attr name="iconColor" format="color"/>
         <attr name="buttonBackground" format="color"/>
         <attr name="buttonTextColor" format="color"/>
+        <attr name="msgText" format="color"/>
 </resources>
