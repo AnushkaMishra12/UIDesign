@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.Adapter.RecyclerAdapter;
+import com.example.uidesign.Model.ProductsItem;
 import com.example.uidesign.Model.ResponseDataItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +31,7 @@ public class DashBoardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
     private ShimmerFrameLayout shimmerFrameLayout;
+    RecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +67,28 @@ public class DashBoardActivity extends AppCompatActivity {
     }
     private void getApiRecyclerData() {
 
-        Call<List<ResponseDataItem>> call = RetrofitClient.getInstance().getApi().getData();
-        call.enqueue(new Callback<List<ResponseDataItem>>() {
+        Call<List<ProductsItem>> call = RetrofitClient.getInstance().getApi().getDataProduct();
+        call.enqueue(new Callback<List<ProductsItem>>() {
 
             @Override
-            public void onResponse(@NonNull Call<List<ResponseDataItem>> call, @NonNull Response<List<ResponseDataItem>> response) {
+            public void onResponse(@NonNull Call<List<ProductsItem>> call, @NonNull Response<List<ProductsItem>> response) {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+
                 if (response.isSuccessful()) {
-                    getItem(response.body());
+                    List<ProductsItem > results = response.body();
+
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<List<ResponseDataItem>> call, @NonNull Throwable throwable) {
+            public void onFailure(@NonNull Call<List<ProductsItem>> call, @NonNull Throwable throwable) {
                 Toast.makeText(DashBoardActivity.this, "Failed No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void getItem(List<ResponseDataItem> itemList) {
+    private void getItem(List<ProductsItem> itemList) {
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(itemList, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(true);

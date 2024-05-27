@@ -73,7 +73,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    app:endIconMode="clear_text"
                     app:helperTextEnabled="true"
                     app:hintTextColor="?attr/textColor"
                     android:hint="@string/e">
@@ -81,7 +80,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/user_lt"
                         android:layout_width="match_parent"
-                        android:inputType="textPersonName"
+                        android:inputType="textEmailAddress"
                         android:textColor="?attr/textColor"
                         android:textSize="15sp"
                         android:layout_height="wrap_content" />
@@ -125,8 +124,6 @@
                     android:layout_margin="5dp"
                     android:textColor="?attr/msgText"
                     />
-
-
 
                 <TextView
                     android:id="@+id/forgetPassword"

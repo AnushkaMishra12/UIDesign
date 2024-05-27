@@ -29,7 +29,6 @@ public class ForgotPassword extends AppCompatActivity {
     EditText emailInput;
     Button resetpassword;
     TextView returnToLogin, txtEmailStatusMessage, statusMessage;
-    ImageView backIconForgotPassword;
     FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +39,22 @@ public class ForgotPassword extends AppCompatActivity {
         w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-
         emailInput = findViewById(R.id.editTextEmailInput);
         resetpassword = findViewById(R.id.buttonResetYourPassword);
         returnToLogin = findViewById(R.id.textReturnToLoginPage);
         txtEmailStatusMessage = findViewById(R.id.emailInputStatus);
         statusMessage = findViewById(R.id.statusMessages);
-        backIconForgotPassword = findViewById(R.id.backIconimageForgotPassword);
         firebaseAuth = FirebaseAuth.getInstance();
+        returnToLogin.setOnClickListener(v -> finish());
 
-
-        backIconForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-        returnToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-        //FORGET PASSWORD
         resetpassword.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
 
                 String inputEmail = emailInput.getText().toString().trim();
-               // sendVerification(inputEmail);
-
                 if (TextUtils.isEmpty(inputEmail)) {
                     txtEmailStatusMessage.setText("Enter your registered Email Address");
-                    return;
                 } else {
                    sendVerification(inputEmail);
                     txtEmailStatusMessage.setText(" ");
@@ -100,19 +77,16 @@ public class ForgotPassword extends AppCompatActivity {
                     progressDialog.dismiss();
                     statusMessage.setText("We have sent a link on your Email Address to Reset Your Password");
 
+                    new Handler().postDelayed(() -> {
+                        startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
+                        finish();
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
-                            finish();
-
-                        }
                     }, 3000);
                 }
             }
 
-        }).addOnFailureListener(e -> statusMessage.setText(e.getMessage()));
+        }
+        ).addOnFailureListener(e -> statusMessage.setText(e.getMessage()));
 
     }
 }

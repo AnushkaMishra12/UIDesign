@@ -142,7 +142,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    break;
+                break;
             }
         }
     }

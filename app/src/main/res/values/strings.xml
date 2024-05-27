@@ -49,4 +49,8 @@
     <string name="enter_username_or_email">Enter Username or Email</string>
     <string name="enter_password">Enter Password</string>
     <string name="e">Enter Username or Email</string>
+    <string name="enter_your_email_address_here">Enter your email address here..</string>
+    <string name="reset_your_password">Reset Your Password</string>
+    <string name="return_to_login_page">Return to Login Page</string>
+    <string name="forgot_your_password">Forgot Your Password?</string>
 </resources>

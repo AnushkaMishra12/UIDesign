@@ -17,7 +17,6 @@ public class SignUpDataItem {
         this.Designation = designation;
         this.phoneNo = phoneNo;
         this.Password = password;
-
     }
 
     public String getName() {

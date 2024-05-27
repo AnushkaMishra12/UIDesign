@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         pd.show();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("email").equalTo(userName);
+        Query checkUserDatabase = reference.orderByChild("name").equalTo(userName);
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

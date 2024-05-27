@@ -44,7 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
                     for (DataSnapshot modelSnapshot : dataSnapshot.getChildren()) {
                         String name_st = String.valueOf(modelSnapshot.child("name").getValue());
                         String gender_st = String.valueOf(modelSnapshot.child("gender").getValue());

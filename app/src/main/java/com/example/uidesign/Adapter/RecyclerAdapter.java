@@ -13,17 +13,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uidesign.Model.ProductsItem;
 import com.example.uidesign.Model.ResponseDataItem;
+import com.example.uidesign.Model.ResponseDataModel;
 import com.example.uidesign.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    List<ResponseDataItem> dataItem;
+    List<ProductsItem> dataItem;
     Context context;
 
-    public RecyclerAdapter(List<ResponseDataItem> dataItem, Context context) {
+    public RecyclerAdapter(List<ProductsItem> dataItem, Context context) {
         this.dataItem = dataItem;
         this.context = context;
     }
@@ -39,11 +41,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        ResponseDataItem responseDataItem = dataItem.get(position);
-        holder.id.setText("Id :" + responseDataItem.getAlbumId() + "");
-        holder.album_id.setText("Album Id : " + responseDataItem.getId() + "");
+        ProductsItem responseDataItem = dataItem.get(position);
+        holder.id.setText("Id :" + responseDataItem.getId() + "");
+        holder.album_id.setText("Album Id : " + responseDataItem.getRating() + "");
         holder.title.setText("Title :" + responseDataItem.    getTitle());
-        Picasso.get().load(responseDataItem.getThumbnailUrl()).into(holder.img);
+        Picasso.get().load(responseDataItem.getThumbnail()).into(holder.img);
         holder.share.setOnClickListener(view -> {
 
             Intent intent = new Intent();
@@ -64,8 +66,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-
         public TextView album_id, id, title;
         ImageView img, share;
         LinearLayout card;
