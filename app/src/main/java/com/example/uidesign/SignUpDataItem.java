@@ -8,15 +8,17 @@ public class SignUpDataItem {
     String Designation;
     String phoneNo;
     String Password;
+    String image;
 
 
-    public SignUpDataItem(String name, String email, String gender, String designation, String phoneNo, String password) {
+    public SignUpDataItem(String name, String email, String gender, String designation, String phoneNo, String password,String image) {
         this.name = name;
         this.Email = email;
         this.Gender = gender;
         this.Designation = designation;
         this.phoneNo = phoneNo;
         this.Password = password;
+        this.image=image;
     }
 
     public String getName() {
@@ -65,5 +67,13 @@ public class SignUpDataItem {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
