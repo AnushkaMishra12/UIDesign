@@ -50,7 +50,6 @@ public class ForgotPassword extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-
                 String inputEmail = emailInput.getText().toString().trim();
                 if (TextUtils.isEmpty(inputEmail)) {
                     txtEmailStatusMessage.setText("Enter your registered Email Address");
@@ -74,11 +73,9 @@ public class ForgotPassword extends AppCompatActivity {
                     Log.d(TAG, "Email sent.");
                     progressDialog.dismiss();
                     statusMessage.setText("We have sent a link on your Email Address to Reset Your Password");
-
                     new Handler().postDelayed(() -> {
                         startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
                         finish();
-
                     }, 3000);
                 }
             }

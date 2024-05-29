@@ -1,14 +1,18 @@
 package com.example.uidesign;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.uidesign.Adapter.RecyclerAdapter;
 import com.example.uidesign.Model.ProductsItem;
@@ -19,7 +23,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +42,10 @@ public class DashBoardActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     private ShimmerFrameLayout shimmerFrameLayout;
     RecyclerAdapter recyclerAdapter;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference reference;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +55,16 @@ public class DashBoardActivity extends AppCompatActivity {
         profile = findViewById(R.id.profile);
         recyclerView = findViewById(R.id.recycler_view);
         log_out = findViewById(R.id.logOut);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+//        Intent intent = getIntent();
+//        String img = intent.getExtras().getString("image");
+//        Glide.with(DashBoardActivity.this).load(img).into(profile);
+
         if (firebaseUser != null) {
             Glide.with(DashBoardActivity.this).load(firebaseUser.getPhotoUrl()).into(profile);
         }
@@ -65,6 +85,7 @@ public class DashBoardActivity extends AppCompatActivity {
         });
         getApiRecyclerData();
     }
+
     private void getApiRecyclerData() {
 
         Call<List<ProductsItem>> call = RetrofitClient.getInstance().getApi().getDataProduct();
@@ -76,11 +97,12 @@ public class DashBoardActivity extends AppCompatActivity {
                 shimmerFrameLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
 
-                if (response.isSuccessful()) {
-                    List<ProductsItem > results = response.body();
+                Log.d("TAG", response.code() + "");
+                ProductsItem resource = (ProductsItem) response.body();
+                List<ProductsItem> datumList = resource.data;
 
-                }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<ProductsItem>> call, @NonNull Throwable throwable) {
                 Toast.makeText(DashBoardActivity.this, "Failed No Internet Connection", Toast.LENGTH_SHORT).show();

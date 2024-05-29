@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.uidesign.Model.ProductsItem;
 import com.example.uidesign.R;
 import com.squareup.picasso.Picasso;
@@ -34,6 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return viewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
@@ -46,12 +49,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "Title: " + holder.title.getText().toString() +
-                    "Id : \n" + holder.id.getText().toString()
-                    + "Album Id \n" + holder.album_id.getText().toString());
+            intent.putExtra(Intent.EXTRA_TEXT, "Title: " + holder.title.getText().toString() + "Id : \n" + holder.id.getText().toString() + "Album Id \n" + holder.album_id.getText().toString());
             //intent.putExtra("Id", dataItem.get(position).getTitle().toString());
             intent.setType("text/plain");
             context.startActivity(intent);
+
         });
     }
 

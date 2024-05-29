@@ -89,6 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
             reference.child(name_st).setValue(item);
             Toast.makeText(SignUpActivity.this, "you have SIgnUp Successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+
             startActivity(i);
         });
 
@@ -155,7 +156,8 @@ public class SignUpActivity extends AppCompatActivity {
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
-                    if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    if (resultCode == RESULT_OK && data != null ) {
+                        //selectedImage = data.getData();
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         image_im.setImageBitmap(selectedImage);
                     }

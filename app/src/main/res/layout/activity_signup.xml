@@ -96,162 +96,118 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:orientation="vertical">
-
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/username"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
+                    android:layout_margin="5dp"
+                    app:helperTextEnabled="true"
+                    app:hintTextColor="?attr/textColor"
+                    app:endIconMode="clear_text"
+                    android:hint="@string/name">
 
-                <EditText
-                    android:id="@+id/user_rt"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_rt"
+                        android:layout_width="match_parent"
+                        android:inputType="textPersonName"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    android:padding="5dp"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
+                    android:layout_margin="5dp"
+                    app:helperTextEnabled="true"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="Gender">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/gender_rt"
+                        android:layout_width="match_parent"
+                        android:inputType="text"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gender"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/gender_rt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/male_female"
-                    android:inputType="text"
-                    android:textSize="15sp"
-                    android:padding="5dp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="vertical">
+                app:helperTextEnabled="true"
+                app:hintTextColor="?attr/textColor"
+                app:endIconMode="clear_text"
+                android:hint="Email">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
-
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_rt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/mishra_gmail_com"
                     android:inputType="textEmailAddress"
-                    android:padding="5dp"
+                    android:textColor="?attr/textColor"
                     android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
+                    android:layout_height="wrap_content" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:textSize="15sp"
-                android:orientation="vertical">
-
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/password"
-                    android:textColor="?attr/textColor" />
+                    android:layout_margin="5dp"
+                    app:helperTextEnabled="true"
+                     app:passwordToggleEnabled="true"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="@string/pwd">
 
-                <EditText
-                    android:id="@+id/pass_rt"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pass_rt"
+                        android:layout_width="match_parent"
+                        android:inputType="textPassword"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/_8272b"
-                    android:textSize="15sp"
-                    android:inputType="textPassword"
-                    android:padding="5dp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
+                    android:layout_margin="5dp"
+                    app:endIconMode="clear_text"
+                    app:helperTextEnabled="true"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="@string/phoneno">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="15sp"
-                android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone_rt"
+                        android:layout_width="match_parent"
+                        android:inputType="phone"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
 
-                <TextView
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
-                    android:textColor="?attr/textColor" />
+                    android:layout_margin="5dp"
+                    app:endIconMode="clear_text"
+                    app:helperTextEnabled="true"
+                    app:hintTextColor="?attr/textColor"
+                    android:hint="@string/desig">
 
-                <EditText
-                    android:id="@+id/phone_rt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/_162138891"
-                    android:inputType="phone"
-                    android:padding="5dp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/desig_rt"
+                        android:layout_width="match_parent"
+                        android:inputType="text"
+                        android:textColor="?attr/textColor"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/designation"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
-
-                <EditText
-                    android:id="@+id/desig_rt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/tv_bg"
-                    android:hint="@string/softw"
-                    android:inputType="text"
-                    android:padding="5dp"
-                    android:textSize="15sp"
-                    android:textColor="?attr/textColor" />
-            </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/signUp_bt"
@@ -265,7 +221,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/sign_up"
                     android:textAlignment="center"
                     android:textColor="?attr/buttonTextColor"

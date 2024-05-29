@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ProductsItem {
 
+    public List<ProductsItem> data;
     @SerializedName("discountPercentage")
     private Object discountPercentage;
 

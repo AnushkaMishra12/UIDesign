@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     TextView signUp_tv,forgetPassword;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     ImageView google_sbt;
     FirebaseUser firebaseUser;
+    CheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp_tv = findViewById(R.id.reg_bt);
         google_sbt = findViewById(R.id.google_sbt);
         forgetPassword=findViewById(R.id.forgetPassword);
+        rememberMe=findViewById(R.id.rememberMe);
         pd = new ProgressDialog(this);
         pd.setTitle("Processing...");
         pd.setMessage("Please wait.");
@@ -179,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkUser() {
+       
         String userName = name_et.getText().toString().trim();
         String userPassword = pass_et.getText().toString().trim();
 
@@ -200,7 +205,10 @@ public class LoginActivity extends AppCompatActivity {
                         String genderFromDB = dataSnapshot.child(userName).child("gender").getValue(String.class);
                         String phoneFromDB = dataSnapshot.child(userName).child("phoneNo").getValue(String.class);
                         String designFromDB = dataSnapshot.child(userName).child("designation").getValue(String.class);
+                        String img = dataSnapshot.child(userName).child("image").getValue(String.class);
+
                         pd.show();
+
                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                         intent.putExtra("name", nameFromDB);
                         intent.putExtra("email", emailFromDB);
@@ -208,6 +216,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("phoneNo", phoneFromDB);
                         intent.putExtra("designation", designFromDB);
                         intent.putExtra("password", passwordFromDB);
+                        intent.putExtra("image", img);
                         pd.dismiss();
                         startActivity(intent);
                         finish();

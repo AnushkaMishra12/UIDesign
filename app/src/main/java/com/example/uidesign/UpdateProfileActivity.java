@@ -60,9 +60,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 chooseImageForUpdate();
             }
         });
-
         showData();
-
         save_bt.setOnClickListener(view -> {
             if (isNameChanged() && isPasswordChanged() && isEmailChanged() && isGenderChanged() && isPhoneNoChanged() && isDesignationChanged()) {
                 Intent i = new Intent(UpdateProfileActivity.this, ProfileActivity.class);
@@ -76,9 +74,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private void chooseImageForUpdate() {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
             if (optionsMenu[i].equals("Take Photo")) {
 

@@ -2,7 +2,6 @@ package com.example.uidesign;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         edit = findViewById(R.id.edit_bt);
         back = findViewById(R.id.back_bt);
         profileName = findViewById(R.id.profile_name);
@@ -65,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
     private void passUserData() {
         String userName = profileName.getText().toString().trim();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
@@ -75,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+
                     String nameFromDB = snapshot.child(userName).child("name").getValue(String.class);
                     String emailFromDB = snapshot.child(userName).child("email").getValue(String.class);
                     String phoneNoFromDB = snapshot.child(userName).child("phoneNo").getValue(String.class);
