@@ -77,13 +77,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
             if (optionsMenu[i].equals("Take Photo")) {
-
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
-            } else if (optionsMenu[i].equals("Choose from Gallery")) {
 
+            } else if (optionsMenu[i].equals("Choose from Gallery")) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, 1);
+
             } else if (optionsMenu[i].equals("Exit")) {
                 dialogInterface.dismiss();
             }

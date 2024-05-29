@@ -69,21 +69,17 @@ public class ProfileActivity extends AppCompatActivity {
         String userName = profileName.getText().toString().trim();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         Query checkUserDatabase = reference.orderByChild("name").equalTo(userName);
-
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-
                     String nameFromDB = snapshot.child(userName).child("name").getValue(String.class);
                     String emailFromDB = snapshot.child(userName).child("email").getValue(String.class);
                     String phoneNoFromDB = snapshot.child(userName).child("phoneNo").getValue(String.class);
                     String designFromDB = snapshot.child(userName).child("designation").getValue(String.class);
                     String genderFromDB = snapshot.child(userName).child("gender").getValue(String.class);
                     String passFromDB = snapshot.child(userName).child("password").getValue(String.class);
-
                     Intent intent = new Intent(ProfileActivity.this, UpdateProfileActivity.class);
-
                     intent.putExtra("name", nameFromDB);
                     intent.putExtra("email", emailFromDB);
                     intent.putExtra("phoneNo", phoneNoFromDB);
