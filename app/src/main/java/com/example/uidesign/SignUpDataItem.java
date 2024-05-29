@@ -11,8 +11,8 @@ public class SignUpDataItem {
     String image;
 
 
-    public SignUpDataItem(String name, String email, String gender, String designation, String phoneNo, String password,String image) {
-        this.name = name;
+
+    public SignUpDataItem(String name, String email, String gender, String designation, String phoneNo, String password,String image){        this.name = name;
         this.Email = email;
         this.Gender = gender;
         this.Designation = designation;

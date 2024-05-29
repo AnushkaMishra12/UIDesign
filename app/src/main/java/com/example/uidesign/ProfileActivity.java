@@ -2,6 +2,7 @@ package com.example.uidesign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_SHORT).show();

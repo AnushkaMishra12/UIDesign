@@ -9,13 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.uidesign.Model.ProductsItem;
-import com.example.uidesign.Model.ResponseDataItem;
-import com.example.uidesign.Model.ResponseDataModel;
 import com.example.uidesign.R;
 import com.squareup.picasso.Picasso;
 
@@ -44,7 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         ProductsItem responseDataItem = dataItem.get(position);
         holder.id.setText("Id :" + responseDataItem.getId() + "");
         holder.album_id.setText("Album Id : " + responseDataItem.getRating() + "");
-        holder.title.setText("Title :" + responseDataItem.    getTitle());
+        holder.title.setText("Title :" + responseDataItem.getTitle());
         Picasso.get().load(responseDataItem.getThumbnail()).into(holder.img);
         holder.share.setOnClickListener(view -> {
 
@@ -56,7 +52,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             //intent.putExtra("Id", dataItem.get(position).getTitle().toString());
             intent.setType("text/plain");
             context.startActivity(intent);
-
         });
     }
 

@@ -13,8 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     public static final String BASE_URL_PRODUCTS = "https://dummyjson.com/";
-
-
     private static RetrofitClient mInstance;
     private final Retrofit retrofit;
 

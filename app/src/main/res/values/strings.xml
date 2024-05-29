@@ -11,9 +11,9 @@
     <string name="create_account">Create Account!</string>
     <string name="signup_to_continue">SignUp to continue</string>
     <string name="mishraanushka121_gmail_com">mishraanushka121@gmail.com</string>
-    <string name="password">Password</string>
+    <string name="password">Password :</string>
     <string name="_8272b">8272b$%%</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="phone_number">Phone Number :</string>
     <string name="already_have_ann_account_signin">Already Have ann Account? SignIn</string>
     <string name="product_details">Product Details</string>
     <string name="sign_in">Sign In</string>
@@ -22,13 +22,13 @@
     <string name="software_developer">Owner Designation</string>
     <string name="profile">Profile</string>
     <string name="softw">Software Developer</string>
-    <string name="designation">Designation</string>
+    <string name="designation">Designation :</string>
     <string name="mishra_gmail_com">mishra@gmail.com</string>
-    <string name="email">Email</string>
+    <string name="email">Email :</string>
     <string name="male_female">Male/Female</string>
-    <string name="gender">Gender</string>
+    <string name="gender">Gender :</string>
     <string name="name">Anushka Mishra</string>
-    <string name="username">UserName</string>
+    <string name="username">UserName :</string>
     <string name="ema">mishraanushka121@gmail.com</string>
     <string name="pass">Password</string>
     <string name="remember_me_and_keep_me_logging">Remember me and keep me logging</string>
@@ -53,4 +53,7 @@
     <string name="reset_your_password">Reset Your Password</string>
     <string name="return_to_login_page">Return to Login Page</string>
     <string name="forgot_your_password">Forgot Your Password?</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="id">Id :</string>
 </resources>

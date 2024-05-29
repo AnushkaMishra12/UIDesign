@@ -27,10 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 
@@ -86,9 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
             String design_st = designation_et.getText().toString();
             String img= selectedImage.getPath();
 
-
             uploadImage();
-
             SignUpDataItem item = new SignUpDataItem(name_st, email_st, gender_st, design_st, phone_st, pass_st,img);
             reference.child(name_st).setValue(item);
             Toast.makeText(SignUpActivity.this, "you have SIgnUp Successfully", Toast.LENGTH_SHORT).show();
@@ -111,7 +107,6 @@ public class SignUpActivity extends AppCompatActivity {
             }).addOnFailureListener(e -> {
                 Toast.makeText(SignUpActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }).addOnProgressListener(taskSnapshot -> {
-
             });
         }
     }
@@ -158,10 +153,9 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
-        //    selectedImage = data.getData();
             switch (requestCode) {
                 case 0:
-                    if (resultCode == RESULT_OK && data != null) {
+                    if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         image_im.setImageBitmap(selectedImage);
                     }

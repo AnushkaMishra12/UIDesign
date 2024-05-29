@@ -32,7 +32,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
     String nameUser, emailUser, passUser, phoneUser, designUser, genderUser;
-    ImageView cam, img;
+    ImageView cam, img, edit, delete;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     @Override
@@ -50,11 +50,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
         design_et = findViewById(R.id.des_up);
         email_et = findViewById(R.id.email_up);
         pass_et = findViewById(R.id.pass_up);
-        cam=findViewById(R.id.cam_up);
-        img=findViewById(R.id.image_up);
+        cam = findViewById(R.id.cam_up);
+        img = findViewById(R.id.image_up);
+        edit = findViewById(R.id.edit_profile);
+        delete = findViewById(R.id.delete_profile);
 
         cam.setOnClickListener(v -> {
-            if(checkAndRequestPermissionsForUpdate()){
+            if (checkAndRequestPermissionsForUpdate()) {
                 chooseImageForUpdate();
             }
         });
@@ -73,22 +75,20 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void chooseImageForUpdate() {
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" };
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setItems(optionsMenu, (dialogInterface, i) -> {
-            if(optionsMenu[i].equals("Take Photo")){
+            if (optionsMenu[i].equals("Take Photo")) {
 
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
-            }
-            else if(optionsMenu[i].equals("Choose from Gallery")){
+            } else if (optionsMenu[i].equals("Choose from Gallery")) {
 
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , 1);
-            }
-            else if (optionsMenu[i].equals("Exit")) {
+                startActivityForResult(pickPhoto, 1);
+            } else if (optionsMenu[i].equals("Exit")) {
                 dialogInterface.dismiss();
             }
         });
@@ -142,7 +142,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                             }
                         }
                     }
-                break;
+                    break;
             }
         }
     }
@@ -156,6 +156,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isPhoneNoChanged() {
         if (!phoneUser.equalsIgnoreCase(phone_et.getText().toString())) {
             reference.child("users").child("phoneNo").setValue(phone_et.getText().toString());
@@ -165,6 +166,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isGenderChanged() {
         if (!genderUser.equalsIgnoreCase(gender_et.getText().toString())) {
             reference.child("users").child("gender").setValue(gender_et.getText().toString());
@@ -174,6 +176,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isNameChanged() {
         if (!nameUser.equalsIgnoreCase(name_et.getText().toString())) {
             reference.child("users").child("name").setValue(name_et.getText().toString());
@@ -183,6 +186,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isEmailChanged() {
         if (!emailUser.equalsIgnoreCase(email_et.getText().toString())) {
             reference.child("users").child("email").setValue(email_et.getText().toString());
@@ -192,6 +196,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isPasswordChanged() {
         if (!passUser.equalsIgnoreCase(pass_et.getText().toString())) {
             reference.child("users").child("password").setValue(pass_et.getText().toString());
@@ -201,6 +206,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private void showData() {
         Intent intent = getIntent();
         nameUser = intent.getStringExtra("name");
@@ -215,6 +221,5 @@ public class UpdateProfileActivity extends AppCompatActivity {
         phone_et.setText(phoneUser);
         design_et.setText(designUser);
         pass_et.setText(passUser);
-        //data save on update activity...
     }
 }

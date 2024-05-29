@@ -14,22 +14,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassword extends AppCompatActivity {
     EditText emailInput;
-    Button resetpassword;
+    Button resetPassword;
     TextView returnToLogin, txtEmailStatusMessage, statusMessage;
     FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +39,14 @@ public class ForgotPassword extends AppCompatActivity {
         w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         emailInput = findViewById(R.id.editTextEmailInput);
-        resetpassword = findViewById(R.id.buttonResetYourPassword);
+        resetPassword = findViewById(R.id.buttonResetYourPassword);
         returnToLogin = findViewById(R.id.textReturnToLoginPage);
         txtEmailStatusMessage = findViewById(R.id.emailInputStatus);
         statusMessage = findViewById(R.id.statusMessages);
         firebaseAuth = FirebaseAuth.getInstance();
         returnToLogin.setOnClickListener(v -> finish());
 
-        resetpassword.setOnClickListener(new View.OnClickListener() {
+        resetPassword.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -63,7 +62,6 @@ public class ForgotPassword extends AppCompatActivity {
         });
     }
         private void sendVerification(String inputEmail) {
-
         final ProgressDialog progressDialog = new ProgressDialog(ForgotPassword.this);
         progressDialog.setMessage("verifying..");
         progressDialog.show();
@@ -84,10 +82,8 @@ public class ForgotPassword extends AppCompatActivity {
                     }, 3000);
                 }
             }
-
         }
         ).addOnFailureListener(e -> statusMessage.setText(e.getMessage()));
-
     }
 }
 

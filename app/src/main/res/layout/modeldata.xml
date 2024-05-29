@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:textColor="?attr/textColor"
                 android:padding="5dp"
-                android:text="Id :"
+                android:text="@string/id"
                 android:textSize="12sp" />
 
             <ImageView

@@ -1,13 +1,17 @@
 package com.example.uidesign;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -19,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -58,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         signUp_tv = findViewById(R.id.reg_bt);
         google_sbt = findViewById(R.id.google_sbt);
         forgetPassword=findViewById(R.id.forgetPassword);
-
         pd = new ProgressDialog(this);
         pd.setTitle("Processing...");
         pd.setMessage("Please wait.");
@@ -75,12 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 checkUser();
             }
         });
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, ForgotPassword.class);
-                startActivity(i);
-            }
+        forgetPassword.setOnClickListener(v -> {
+            showRecoverPasswordDialog();
         });
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -100,7 +100,59 @@ public class LoginActivity extends AppCompatActivity {
             Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
             startActivity(i);
         }
+    }
 
+    private void showRecoverPasswordDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Recover Password");
+        builder.setIcon(R.drawable.logo);
+        LinearLayout linearLayout=new LinearLayout(this);
+        final EditText emailet= new EditText(this);
+
+        emailet.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailet.setHint("Enter Email");
+        linearLayout.addView(emailet);
+        linearLayout.setPadding(10,10,10,10);
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Recover", (dialog, which) -> {
+            String email=emailet.getText().toString().trim();
+            beginRecovery(email);
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void beginRecovery(String email) {
+        pd=new ProgressDialog(this);
+        pd.setMessage("Sending Email....");
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                pd.dismiss();
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(LoginActivity.this,"Done sent",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this,"Error Occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(LoginActivity.this,"Error Failed",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public Boolean validateUser() {
