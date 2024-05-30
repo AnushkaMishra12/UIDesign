@@ -42,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Uri selectedImage;
     FirebaseStorage storage;
     StorageReference storageReference;
+
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     @Override
@@ -73,9 +74,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         signUp_bt.setOnClickListener(view -> {
+
             firebaseDatabase = FirebaseDatabase.getInstance();
             reference = firebaseDatabase.getReference("users");
-
             String name_st = userName_et.getText().toString();
             String gender_st = gender_et.getText().toString();
             String email_st = email_et.getText().toString();
@@ -85,18 +86,20 @@ public class SignUpActivity extends AppCompatActivity {
             String img= selectedImage.getPath();
 
             uploadImage();
+
             SignUpDataItem item = new SignUpDataItem(name_st, email_st, gender_st, design_st, phone_st, pass_st,img);
             reference.child(name_st).setValue(item);
             Toast.makeText(SignUpActivity.this, "you have SIgnUp Successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
-
             startActivity(i);
+
         });
 
         sign_bt.setOnClickListener(view -> {
             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(i);
         });
+
     }
 
     private void uploadImage() {
@@ -104,8 +107,8 @@ public class SignUpActivity extends AppCompatActivity {
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
             ref.putFile(selectedImage).addOnSuccessListener(taskSnapshot -> {
                 Toast.makeText(SignUpActivity.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
-
-            }).addOnFailureListener(e -> {
+            }
+            ).addOnFailureListener(e -> {
                 Toast.makeText(SignUpActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }).addOnProgressListener(taskSnapshot -> {
             });

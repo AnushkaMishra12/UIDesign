@@ -1,87 +1,161 @@
 package com.example.uidesign.Model;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class ProductsItem{
 
-public class ProductsItem {
+	@SerializedName("images")
+	private List<String> images;
 
-    public List<ProductsItem> data;
-    @SerializedName("discountPercentage")
-    private Object discountPercentage;
+	@SerializedName("thumbnail")
+	private String thumbnail;
 
-    @SerializedName("thumbnail")
-    private String thumbnail;
+	@SerializedName("minimumOrderQuantity")
+	private int minimumOrderQuantity;
 
-    @SerializedName("images")
-    private List<String> images;
+	@SerializedName("rating")
+	private Object rating;
 
-    @SerializedName("price")
-    private int price;
+	@SerializedName("returnPolicy")
+	private String returnPolicy;
 
-    @SerializedName("rating")
-    private Object rating;
+	@SerializedName("description")
+	private String description;
 
-    @SerializedName("description")
-    private String description;
+	@SerializedName("weight")
+	private int weight;
 
-    @SerializedName("id")
-    private int id;
+	@SerializedName("warrantyInformation")
+	private String warrantyInformation;
 
-    @SerializedName("title")
-    private String title;
+	@SerializedName("title")
+	private String title;
 
-    @SerializedName("stock")
-    private int stock;
+	@SerializedName("tags")
+	private List<String> tags;
 
-    @SerializedName("category")
-    private String category;
+	@SerializedName("discountPercentage")
+	private Object discountPercentage;
 
-    @SerializedName("brand")
-    private String brand;
+	@SerializedName("reviews")
+	private List<ReviewsItem> reviews;
 
+	@SerializedName("price")
+	private Object price;
 
-    public Object getDiscountPercentage() {
-        return discountPercentage;
-    }
+	@SerializedName("meta")
+	private Meta meta;
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+	@SerializedName("shippingInformation")
+	private String shippingInformation;
 
-    public List<String> getImages() {
-        return images;
-    }
+	@SerializedName("id")
+	private int id;
 
-    public int getPrice() {
-        return price;
-    }
+	@SerializedName("availabilityStatus")
+	private String availabilityStatus;
 
-    public Object getRating() {
-        return rating;
-    }
+	@SerializedName("category")
+	private String category;
 
-    public String getDescription() {
-        return description;
-    }
+	@SerializedName("stock")
+	private int stock;
 
-    public int getId() {
-        return id;
-    }
+	@SerializedName("sku")
+	private String sku;
 
-    public String getTitle() {
-        return title;
-    }
+	@SerializedName("dimensions")
+	private Dimensions dimensions;
 
-    public int getStock() {
-        return stock;
-    }
+	@SerializedName("brand")
+	private String brand;
 
-    public String getCategory() {
-        return category;
-    }
+	public List<String> getImages(){
+		return images;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public String getThumbnail(){
+		return thumbnail;
+	}
+
+	public int getMinimumOrderQuantity(){
+		return minimumOrderQuantity;
+	}
+
+	public Object getRating(){
+		return rating;
+	}
+
+	public String getReturnPolicy(){
+		return returnPolicy;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+
+	public int getWeight(){
+		return weight;
+	}
+
+	public String getWarrantyInformation(){
+		return warrantyInformation;
+	}
+
+	public String getTitle(){
+		return title;
+	}
+
+	public List<String> getTags(){
+		return tags;
+	}
+
+	public Object getDiscountPercentage(){
+		return discountPercentage;
+	}
+
+	public List<ReviewsItem> getReviews(){
+		return reviews;
+	}
+
+	public Object getPrice(){
+		return price;
+	}
+
+	public Meta getMeta(){
+		return meta;
+	}
+
+	public String getShippingInformation(){
+		return shippingInformation;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public String getAvailabilityStatus(){
+		return availabilityStatus;
+	}
+
+	public String getCategory(){
+		return category;
+	}
+
+	public int getStock(){
+		return stock;
+	}
+
+	public String getSku(){
+		return sku;
+	}
+
+	public Dimensions getDimensions(){
+		return dimensions;
+	}
+
+	public String getBrand(){
+		return brand;
+	}
 }

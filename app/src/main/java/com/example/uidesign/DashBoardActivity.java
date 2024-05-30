@@ -1,7 +1,6 @@
 package com.example.uidesign;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.uidesign.Adapter.RecyclerAdapter;
+import com.example.uidesign.Model.ProductDataItem;
 import com.example.uidesign.Model.ProductsItem;
-import com.example.uidesign.Model.ResponseDataItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -51,10 +50,12 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+
         shimmerFrameLayout = findViewById(R.id.shimmer);
         profile = findViewById(R.id.profile);
         recyclerView = findViewById(R.id.recycler_view);
         log_out = findViewById(R.id.logOut);
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -68,12 +69,14 @@ public class DashBoardActivity extends AppCompatActivity {
         if (firebaseUser != null) {
             Glide.with(DashBoardActivity.this).load(firebaseUser.getPhotoUrl()).into(profile);
         }
+
         googleSignInClient = GoogleSignIn.getClient(DashBoardActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
         profile.setOnClickListener(view -> {
             Intent i = new Intent(DashBoardActivity.this, ProfileActivity.class);
             startActivity(i);
         });
+
         log_out.setOnClickListener(view -> {
             googleSignInClient.signOut().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -83,29 +86,30 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
             });
         });
+
         getApiRecyclerData();
     }
 
     private void getApiRecyclerData() {
-
-        Call<List<ProductsItem>> call = RetrofitClient.getInstance().getApi().getDataProduct();
-        call.enqueue(new Callback<List<ProductsItem>>() {
-
+        Call<ProductDataItem> call = RetrofitClient.getInstance().getApi().getDataProduct();
+        call.enqueue(new Callback<ProductDataItem>() {
             @Override
-            public void onResponse(@NonNull Call<List<ProductsItem>> call, @NonNull Response<List<ProductsItem>> response) {
-                shimmerFrameLayout.stopShimmer();
+            public void onResponse(@NonNull Call<ProductDataItem> call, @NonNull Response<ProductDataItem> response) {
+
                 shimmerFrameLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-
-                Log.d("TAG", response.code() + "");
-                ProductsItem resource = (ProductsItem) response.body();
-                List<ProductsItem> datumList = resource.data;
-
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        getItem(response.body().getProducts());
+                    }
+                }
+                //  Log.d("TAG", response.code() + "");
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<ProductsItem>> call, @NonNull Throwable throwable) {
-                Toast.makeText(DashBoardActivity.this, "Failed No Internet Connection", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call<ProductDataItem> call, @NonNull Throwable throwable) {
+                Toast.makeText(DashBoardActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                Log.d("Responsedata", throwable + "");
             }
         });
     }
