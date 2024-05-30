@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -15,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,12 +38,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView signUp_tv,forgetPassword;
+    TextView signUp_tv, forgetPassword;
     CardView login_cv;
     EditText name_et, pass_et;
     private ProgressDialog pd;
@@ -65,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         login_cv = findViewById(R.id.login_bt);
         signUp_tv = findViewById(R.id.reg_bt);
         google_sbt = findViewById(R.id.google_sbt);
-        forgetPassword=findViewById(R.id.forgetPassword);
-        rememberMe=findViewById(R.id.rememberMe);
+        forgetPassword = findViewById(R.id.forgetPassword);
+        rememberMe = findViewById(R.id.rememberMe);
         pd = new ProgressDialog(this);
         pd.setTitle("Processing...");
         pd.setMessage("Please wait.");
@@ -76,9 +78,10 @@ public class LoginActivity extends AppCompatActivity {
         signUp_tv.setOnClickListener(view -> {
             Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(i);
+            finish();
         });
         login_cv.setOnClickListener(view -> {
-            if(!validateUser() | !validatePassword()) {
+            if (!validateUser() | !validatePassword()) {
             } else {
                 checkUser();
             }
@@ -107,20 +110,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showRecoverPasswordDialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Recover Password");
         builder.setIcon(R.drawable.logo);
-        LinearLayout linearLayout=new LinearLayout(this);
-        final EditText emailet= new EditText(this);
+        LinearLayout linearLayout = new LinearLayout(this);
+        final EditText emailet = new EditText(this);
 
         emailet.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         emailet.setHint("Enter Email");
         linearLayout.addView(emailet);
-        linearLayout.setPadding(10,10,10,10);
+        linearLayout.setPadding(10, 10, 10, 10);
         builder.setView(linearLayout);
 
         builder.setPositiveButton("Recover", (dialog, which) -> {
-            String email=emailet.getText().toString().trim();
+            String email = emailet.getText().toString().trim();
             beginRecovery(email);
         });
 
@@ -134,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void beginRecovery(String email) {
-        pd=new ProgressDialog(this);
+        pd = new ProgressDialog(this);
         pd.setMessage("Sending Email....");
         pd.setCanceledOnTouchOutside(false);
         pd.show();
@@ -142,19 +145,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 pd.dismiss();
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(LoginActivity.this,"Done sent",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(LoginActivity.this,"Error Occurred",Toast.LENGTH_LONG).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Done sent", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error Occurred", Toast.LENGTH_LONG).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(LoginActivity.this,"Error Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -183,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkUser() {
-       
+
         String userName = name_et.getText().toString().trim();
         String userPassword = pass_et.getText().toString().trim();
 
@@ -195,8 +196,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
                     signUp_tv.setError(null);
                     String passwordFromDB = dataSnapshot.child(userName).child("password").getValue(String.class);
+
                     if (passwordFromDB.equals(userPassword)) {
                         signUp_tv.setError(null);
 
@@ -220,6 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                         pd.dismiss();
                         startActivity(intent);
                         finish();
+
                     } else {
                         pass_et.setError("Invalid Credentials");
                         pass_et.requestFocus();

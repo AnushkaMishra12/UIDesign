@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.uidesign.DetailProductActivity;
 import com.example.uidesign.Model.ProductsItem;
 import com.example.uidesign.R;
 import com.squareup.picasso.Picasso;
@@ -27,11 +27,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.dataItem = dataItem;
         this.context = context;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.modeldata, parent, false);
+        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_recycler, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
         return viewHolder;
     }
@@ -39,22 +38,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         ProductsItem responseDataItem = dataItem.get(position);
-        holder.id.setText("Id :" + responseDataItem.getId() + "");
-        holder.album_id.setText("Album Id : " + responseDataItem.getRating() + "");
+        holder.price.setText("₹" + responseDataItem.getPrice() + "");
+        holder.discription.setText("Discription :" + responseDataItem.getDescription() + "");
         holder.title.setText("Title :" + responseDataItem.getTitle());
+        holder.dis.setText("%" + responseDataItem.getDiscountPercentage() + "");
+        holder.category.setText(responseDataItem.getCategory());
         Picasso.get().load(responseDataItem.getThumbnail()).into(holder.img);
-        holder.share.setOnClickListener(view -> {
+        holder.rating.setRating(Float.parseFloat(responseDataItem.getRating() + ""));
 
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "Title: " + holder.title.getText().toString() + "Id : \n" + holder.id.getText().toString() + "Album Id \n" + holder.album_id.getText().toString());
-            //intent.putExtra("Id", dataItem.get(position).getTitle().toString());
-            intent.setType("text/plain");
-            context.startActivity(intent);
+        holder.img.setOnClickListener(v -> moveToAddressFrom(v,holder.getAdapterPosition()));
+    }
 
-        });
+    private void moveToAddressFrom(View v, int adapterPosition) {
+        Intent i = new Intent(v.getContext(), DetailProductActivity.class);
+        i.putExtra("title",dataItem.get(adapterPosition).getTitle());
+        i.putExtra("thumbnail",dataItem.get(adapterPosition).getThumbnail());
+        i.putExtra("description",dataItem.get(adapterPosition).getDescription());
+        i.putExtra("description",dataItem.get(adapterPosition).getDescription());
+        i.putExtra("price",dataItem.get(adapterPosition).getPrice());
+        v.getContext().startActivity(i);
     }
 
     @Override
@@ -63,18 +66,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView album_id, id, title;
-        ImageView img, share;
+        public TextView price, dis, discription,title,category;
+        ImageView img;
         LinearLayout card;
+        RatingBar rating;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            album_id = itemView.findViewById(R.id.album_id);
-            id = itemView.findViewById(R.id.id_tv);
-            title = itemView.findViewById(R.id.title_tv);
-            img = itemView.findViewById(R.id.img_iv);
-            share = itemView.findViewById(R.id.share_im);
-            card = itemView.findViewById(R.id.card_data);
+            price = itemView.findViewById(R.id.price_p);
+            dis = itemView.findViewById(R.id.discount_p);
+            discription = itemView.findViewById(R.id.dis_p);
+            title = itemView.findViewById(R.id.tit_p);
+            img=itemView.findViewById(R.id.img_p);
+            category=itemView.findViewById(R.id.category_p);
+            rating=itemView.findViewById(R.id.rating);
             itemView.setClickable(true);
         }
     }

@@ -59,4 +59,15 @@
     <string name="pwd">Password</string>
     <string name="phoneno">PhoneNo</string>
     <string name="desig">Designation</string>
+    <string name="category">Category</string>
+    <string name="price">Price:</string>
+    <string name="discount">Discount:</string>
+    <string name="tit">Title:</string>
+    <string name="discription">Discription:</string>
+    <string name="reviews">reviews...</string>
+    <string name="rev">Reviews</string>
+    <string name="feedback">feedback</string>
+    <string name="titl">title</string>
+    <string name="product_name">Product Name</string>
+    <string name="description">Description</string>
 </resources>

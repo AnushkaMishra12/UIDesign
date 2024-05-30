@@ -1,7 +1,8 @@
 package com.example.uidesign.Model;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ProductsItem{
 
@@ -42,7 +43,7 @@ public class ProductsItem{
 	private List<ReviewsItem> reviews;
 
 	@SerializedName("price")
-	private Object price;
+	private String price;
 
 	@SerializedName("meta")
 	private Meta meta;
@@ -119,7 +120,7 @@ public class ProductsItem{
 		return reviews;
 	}
 
-	public Object getPrice(){
+	public String getPrice(){
 		return price;
 	}
 
